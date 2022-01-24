@@ -10,6 +10,7 @@ client = discord.Client()
 my_secret = os.environ['discord_key']
 
 sad_words = ['sad',"depressed",'unhappy','angry']
+wellcome_words = ['thanks', 'happy', 'bye']
 
 starter_encouragements = [
   'cheer up', 'hang in there!',
@@ -36,12 +37,15 @@ async def on_message(message):
     return 
 
   msg = message.content
-  
+
   if message.content.startswith('sad'):
     quote = getquote()
     await message.channel.send(quote)
 
-  if any(word in msg for word in sad_words):
+  elif any(word in msg for word in sad_words):
     await message.channel.send(random.choice(starter_encouragements))
+
+  elif any(word in msg for word in wellcome_words):
+    await message.channel.send('Your wellcome Sir :)')
 client.run(my_secret)
 
